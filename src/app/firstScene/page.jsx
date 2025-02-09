@@ -7,6 +7,7 @@ import GUI from "lil-gui";
 export default function FirstScene() {
   useEffect(() => {
     const renderer = new THREE.WebGLRenderer();
+    renderer.shadowMap.enabled = true; // Sahdow Enable
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
@@ -25,6 +26,7 @@ export default function FirstScene() {
     const axesHelper = new THREE.AxesHelper(5);
     scene.add(axesHelper);
     camera.position.set(0, 2, 5);
+    orbitControls.update();
 
     // Grid
     const griHelper = new THREE.GridHelper(30);
@@ -50,13 +52,14 @@ export default function FirstScene() {
 
     // Sphere Geometry
     const sphereGeometry = new THREE.SphereGeometry(4, 50, 50);
-    const sphereMetrial = new THREE.MeshBasicMaterial({
+    const sphereMetrial = new THREE.MeshStandardMaterial({
       color: 0x0000ff,
       wireframe: false,
     });
     const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMetrial);
     scene.add(sphereMesh);
     sphereMesh.position.set(-10, 4, 0);
+    let step = 0;
 
     // GUI Show
     const gui = new GUI();
@@ -75,9 +78,28 @@ export default function FirstScene() {
 
     gui.add(options, "speed", 0, 0.1);
 
+    /*
+    // Light (Ambient)
+    const ambientLight = new THREE.AmbientLight(0x333333);
+    scene.add(ambientLight);
+    */
+
+    // Light (Directional)
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 10);
+    scene.add(directionalLight);
+
+    const dLightHelper = new THREE.DirectionalLightHelper(directionalLight, 5);
+    scene.add(dLightHelper);
+    directionalLight.position.set(-30, 50, 0);
+
     function animate(time) {
       box.rotation.x = time / 1000;
       box.rotation.y = time / 1000;
+
+      //Sphere bounched
+      step += options.speed;
+      sphereMesh.position.y = 10 * Math.abs(Math.sin(step));
+
       renderer.render(scene, camera);
     }
     renderer.setAnimationLoop(animate);

@@ -2,6 +2,7 @@
 import * as THREE from "three";
 import { useEffect } from "react";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import GUI from "lil-gui";
 
 export default function FirstScene() {
   useEffect(() => {
@@ -56,6 +57,16 @@ export default function FirstScene() {
     const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMetrial);
     scene.add(sphereMesh);
     sphereMesh.position.set(-10, 4, 0);
+
+    // GUI Show
+    const gui = new GUI();
+    const options = {
+      sphereColor: "0x0000ff",
+      wireframe: false,
+    };
+    gui.addColor(options, "sphereColor").onChange(function (e) {
+      sphereMesh.material.color.set(e);
+    });
 
     function animate(time) {
       box.rotation.x = time / 1000;

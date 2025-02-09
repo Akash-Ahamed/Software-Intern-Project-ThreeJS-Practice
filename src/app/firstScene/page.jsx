@@ -34,6 +34,8 @@ export default function FirstScene() {
     const material = new THREE.MeshBasicMaterial({ color: 0xff8000 });
     const box = new THREE.Mesh(geometry, material);
     scene.add(box);
+    box.position.set(0, 2, 0);
+    box.scale.set(1, 2, 1);
 
     // Plane Geometry
     const planeGeometry = new THREE.PlaneGeometry(30, 30);
@@ -53,6 +55,7 @@ export default function FirstScene() {
     });
     const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMetrial);
     scene.add(sphereMesh);
+    sphereMesh.position.set(-10, 4, 0);
 
     function animate(time) {
       box.rotation.x = time / 1000;

@@ -86,6 +86,7 @@ export default function FirstScene() {
     scene.add(ambientLight);
     */
 
+    /*
     // Light (Directional)
     const directionalLight = new THREE.DirectionalLight(0xffffff, 10);
     scene.add(directionalLight);
@@ -101,6 +102,17 @@ export default function FirstScene() {
       directionalLight.shadow.camera
     );
     scene.add(dLighShadowHelper);
+    */
+
+    // Light (Spot)
+    const spotLight = new THREE.SpotLight(0xffffff, 10000);
+    scene.add(spotLight);
+    spotLight.position.set(-50, 50, 0);
+    spotLight.castShadow = true;
+    spotLight.angle = 0.2;
+
+    const sLightHelper = new THREE.SpotLightHelper(spotLight);
+    scene.add(sLightHelper);
 
     function animate(time) {
       box.rotation.x = time / 1000;

@@ -45,6 +45,15 @@ export default function FirstScene() {
     scene.add(planeMesh);
     planeMesh.rotation.x = -0.5 * Math.PI;
 
+    // Sphere Geometry
+    const sphereGeometry = new THREE.SphereGeometry(4, 50, 50);
+    const sphereMetrial = new THREE.MeshStandardMaterial({
+      color: 0x0000ff,
+      wireframe: false,
+    });
+    const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMetrial);
+    scene.add(sphereMesh);
+
     function animate(time) {
       box.rotation.x = time / 1000;
       box.rotation.y = time / 1000;

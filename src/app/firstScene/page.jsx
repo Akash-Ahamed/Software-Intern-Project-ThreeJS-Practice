@@ -42,13 +42,14 @@ export default function FirstScene() {
 
     // Plane Geometry
     const planeGeometry = new THREE.PlaneGeometry(30, 30);
-    const planeMaterial = new THREE.MeshBasicMaterial({
+    const planeMaterial = new THREE.MeshStandardMaterial({
       color: 0xffffff,
       side: THREE.DoubleSide,
     });
     const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
     scene.add(planeMesh);
     planeMesh.rotation.x = -0.5 * Math.PI;
+    planeMesh.receiveShadow = true; // Plane reveive the shadow from the sphere
 
     // Sphere Geometry
     const sphereGeometry = new THREE.SphereGeometry(4, 50, 50);
@@ -60,6 +61,7 @@ export default function FirstScene() {
     scene.add(sphereMesh);
     sphereMesh.position.set(-10, 4, 0);
     let step = 0;
+    sphereMesh.castShadow = true; // Sphere cast shadow from the directional light
 
     // GUI Show
     const gui = new GUI();
@@ -87,10 +89,18 @@ export default function FirstScene() {
     // Light (Directional)
     const directionalLight = new THREE.DirectionalLight(0xffffff, 10);
     scene.add(directionalLight);
+    directionalLight.position.set(-30, 50, 0);
+    directionalLight.castShadow = true;
+    directionalLight.shadow.camera.bottom = -12;
 
     const dLightHelper = new THREE.DirectionalLightHelper(directionalLight, 5);
     scene.add(dLightHelper);
-    directionalLight.position.set(-30, 50, 0);
+
+    // Shadow camera for directional light
+    const dLighShadowHelper = new THREE.CameraHelper(
+      directionalLight.shadow.camera
+    );
+    scene.add(dLighShadowHelper);
 
     function animate(time) {
       box.rotation.x = time / 1000;

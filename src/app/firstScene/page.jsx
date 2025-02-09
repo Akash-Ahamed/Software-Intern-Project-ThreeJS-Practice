@@ -1,6 +1,7 @@
 "use client";
 import * as THREE from "three";
 import { useEffect } from "react";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 export default function FirstScene() {
   useEffect(() => {
@@ -9,6 +10,7 @@ export default function FirstScene() {
     document.body.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
+    // Perspective Camera
     const camera = new THREE.PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
@@ -16,14 +18,32 @@ export default function FirstScene() {
       1000
     );
 
+    // Camera Orbit Controls
+    const orbitControls = new OrbitControls(camera, renderer.domElement);
+
     const axesHelper = new THREE.AxesHelper(5);
     scene.add(axesHelper);
     camera.position.set(0, 2, 5);
 
+    // Grid
+    const griHelper = new THREE.GridHelper(30);
+    scene.add(griHelper);
+
+    // Box Geometry
     const geometry = new THREE.BoxGeometry();
     const material = new THREE.MeshBasicMaterial({ color: 0xff8000 });
     const box = new THREE.Mesh(geometry, material);
     scene.add(box);
+
+    // Plane Geometry
+    const planeGeometry = new THREE.PlaneGeometry(30, 30);
+    const planeMaterial = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      side: THREE.DoubleSide,
+    });
+    const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
+    scene.add(planeMesh);
+    planeMesh.rotation.x = -0.5 * Math.PI;
 
     function animate(time) {
       box.rotation.x = time / 1000;

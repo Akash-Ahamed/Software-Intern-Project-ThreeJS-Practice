@@ -69,6 +69,8 @@ export default function FirstScene() {
       sphereColor: "0x0000ff",
       wireframe: false,
       speed: 0.01,
+      angle: 0.2,
+      penumbra: 0,
     };
     gui.addColor(options, "sphereColor").onChange(function (e) {
       sphereMesh.material.color.set(e);
@@ -79,6 +81,8 @@ export default function FirstScene() {
     });
 
     gui.add(options, "speed", 0, 0.1);
+    gui.add(options, "angle", 0, 1);
+    gui.add(options, "penumbra", 0, 1);
 
     /*
     // Light (Ambient)
@@ -121,6 +125,10 @@ export default function FirstScene() {
       //Sphere bounched
       step += options.speed;
       sphereMesh.position.y = 10 * Math.abs(Math.sin(step));
+
+      // Spot light
+      spotLight.angle = options.angle;
+      sLightHelper.update();
 
       renderer.render(scene, camera);
     }

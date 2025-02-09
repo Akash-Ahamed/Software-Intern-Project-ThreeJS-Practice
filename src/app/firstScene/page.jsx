@@ -50,7 +50,7 @@ export default function FirstScene() {
 
     // Sphere Geometry
     const sphereGeometry = new THREE.SphereGeometry(4, 50, 50);
-    const sphereMetrial = new THREE.MeshStandardMaterial({
+    const sphereMetrial = new THREE.MeshBasicMaterial({
       color: 0x0000ff,
       wireframe: false,
     });
@@ -63,10 +63,17 @@ export default function FirstScene() {
     const options = {
       sphereColor: "0x0000ff",
       wireframe: false,
+      speed: 0.01,
     };
     gui.addColor(options, "sphereColor").onChange(function (e) {
       sphereMesh.material.color.set(e);
     });
+
+    gui.add(options, "wireframe").onChange(function (e) {
+      sphereMesh.material.wireframe = e;
+    });
+
+    gui.add(options, "speed", 0, 0.1);
 
     function animate(time) {
       box.rotation.x = time / 1000;

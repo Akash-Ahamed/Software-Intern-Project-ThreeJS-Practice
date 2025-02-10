@@ -26,7 +26,7 @@ export default function ObectRotateScene() {
     scene.add(axesHelper);
     orbitControls.update();
 
-    //
+    // Light (Ambient)
     const ambientLight = new THREE.AmbientLight(0x333333);
     scene.add(ambientLight);
 
@@ -52,19 +52,102 @@ export default function ObectRotateScene() {
     const sun = new THREE.Mesh(sunGeo, sunMat);
     scene.add(sun);
 
+    // Create Function for Planet
+    function createPlanet(size, texture, position, ring) {
+      const geo = new THREE.SphereGeometry(size, 30, 30);
+      const mat = new THREE.MeshStandardMaterial({
+        map: textureLoader.load(texture),
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      const obj = new THREE.Object3D();
+      obj.add(mesh);
+      if (ring) {
+        const ringGeo = new THREE.RingGeometry(
+          ring.innerRadius,
+          ring.outerRadius,
+          32
+        );
+        const ringMat = new THREE.MeshBasicMaterial({
+          map: textureLoader.load(ring.texture),
+          side: THREE.DoubleSide,
+        });
+        const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+        obj.add(ringMesh);
+        ringMesh.position.x = position;
+        ringMesh.rotation.x = -0.5 * Math.PI;
+      }
+      scene.add(obj);
+      mesh.position.x = position;
+      return { mesh, obj };
+    }
+
     // Mercury Obect (Child object)
+    /*
     const mercuryGeo = new THREE.SphereGeometry(3.2, 30, 30);
-    const mercuryMat = new THREE.MeshBasicMaterial({
+    const mercuryMat = new THREE.MeshStandardMaterial({
       map: textureLoader.load("/planet/mercury.jpg"),
     });
     const mercury = new THREE.Mesh(mercuryGeo, mercuryMat);
-    scene.add(mercury);
+    // Parent object create
+    const mercuryParObj = new THREE.Object3D();
+    mercuryParObj.add(mercury);
+    scene.add(mercuryParObj);
     mercury.position.x = 28;
+    */
+    /*
+    // Saturn Obect
+    const saturnGeo = new THREE.SphereGeometry(10, 30, 30);
+    const saturnMat = new THREE.MeshStandardMaterial({
+      map: textureLoader.load("/planet/saturn.jpg"),
+    });
+    const saturn = new THREE.Mesh(saturnGeo, saturnMat);
+    // Parent object create
+    const saturnParObj = new THREE.Object3D();
+    saturnParObj.add(saturn);
+    scene.add(saturnParObj);
+    saturn.position.x = 138;
+
+    // SaturnRin Obect
+    const saturnRingGeo = new THREE.RingGeometry(10, 20, 32);
+    const saturnRingMat = new THREE.MeshBasicMaterial({
+      map: textureLoader.load("/planet/saturnRing.jpg"),
+      side: THREE.DoubleSide,
+    });
+    const saturnRing = new THREE.Mesh(saturnRingGeo, saturnRingMat);
+    saturnParObj.add(saturnRing);
+    saturnRing.position.x = 138;
+    saturnRing.rotation.x = -0.5 * Math.PI;
+*/
+
+    // Planet
+    const mercury = createPlanet(3.2, "/planet/mercury.jpg", 28);
+    const venus = createPlanet(5.8, "/planet/venus.jpg", 44);
+    const earth = createPlanet(6, "/planet/earth.jpg", 62);
+    const mars = createPlanet(4, "/planet/mars.jpg", 78);
+    const jupiter = createPlanet(12, "/planet/jupiter.jpg", 100);
+    const saturn = createPlanet(10, "/planet/saturn.jpg", 138, {
+      innerRadius: 10,
+      outerRadius: 20,
+      texture: "/planet/saturnRing.png",
+    });
+    const uranus = createPlanet(7, "/planet/uranus.jpg", 138, {
+      innerRadius: 10,
+      outerRadius: 20,
+      texture: "/planet/saturnRing.png",
+    });
+    // Light (Point)
+    const pointLight = new THREE.PointLight(0xffffff, 2000, 300);
+    scene.add(pointLight);
 
     function animate() {
-      renderer.render(scene, camera);
-      // Sun rotate
+      //Self Rotation
       sun.rotateY(0.004);
+      mercury.mesh.rotateY(0.004);
+
+      //Around Sun Rotation
+      mercury.obj.rotateY(0.04);
+
+      renderer.render(scene, camera);
     }
     renderer.setAnimationLoop(animate);
   });

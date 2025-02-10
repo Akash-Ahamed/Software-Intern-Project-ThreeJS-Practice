@@ -44,7 +44,7 @@ export default function ObectRotateScene() {
     // Set Image
     const textureLoader = new THREE.TextureLoader();
 
-    //
+    // Sun Obect (Parent object)
     const sunGeo = new THREE.SphereGeometry(16, 30, 30);
     const sunMat = new THREE.MeshBasicMaterial({
       map: textureLoader.load("/planet/sun.jpg"),
@@ -52,8 +52,19 @@ export default function ObectRotateScene() {
     const sun = new THREE.Mesh(sunGeo, sunMat);
     scene.add(sun);
 
+    // Mercury Obect (Child object)
+    const mercuryGeo = new THREE.SphereGeometry(3.2, 30, 30);
+    const mercuryMat = new THREE.MeshBasicMaterial({
+      map: textureLoader.load("/planet/mercury.jpg"),
+    });
+    const mercury = new THREE.Mesh(mercuryGeo, mercuryMat);
+    scene.add(mercury);
+    mercury.position.x = 28;
+
     function animate() {
       renderer.render(scene, camera);
+      // Sun rotate
+      sun.rotateY(0.004);
     }
     renderer.setAnimationLoop(animate);
   });

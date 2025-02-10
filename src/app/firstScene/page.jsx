@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import GUI from "lil-gui";
 
+// Absolute Beginners Tutorial
+
 export default function FirstScene() {
   useEffect(() => {
     const renderer = new THREE.WebGLRenderer();
@@ -90,8 +92,8 @@ export default function FirstScene() {
     scene.add(ambientLight);
     */
 
-    /*
     // Light (Directional)
+    /*
     const directionalLight = new THREE.DirectionalLight(0xffffff, 10);
     scene.add(directionalLight);
     directionalLight.position.set(-30, 50, 0);

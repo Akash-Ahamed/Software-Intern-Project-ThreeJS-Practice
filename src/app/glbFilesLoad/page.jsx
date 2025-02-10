@@ -33,7 +33,7 @@ export default function GlbFilesLoadScene() {
     // Load GLB File
     const assetLoader = new GLTFLoader();
     assetLoader.load(
-      "/glb_files/monkey.glb",
+      "/glb_files/iphone.glb",
       function (gltf) {
         const model = gltf.scene;
         scene.add(model);

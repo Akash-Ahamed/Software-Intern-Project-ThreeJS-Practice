@@ -4,6 +4,7 @@ import FirstScene from "./firstScene/page";
 import ObjectRotateScene from "./objectRotate/page";
 import GlbFilesLoadScene from "./glbFilesLoad/page";
 import PanoramicScene from "./panoramicScene/page";
+import GltfFileLoad from "./gltfFileLoad/page";
 
 export default function Home() {
   return (
@@ -12,7 +13,8 @@ export default function Home() {
         {/*<FirstScene />*/}
         {/*<ObjectRotateScene />*/}
         {/*<GlbFilesLoadScene />*/}
-        <PanoramicScene />
+        {/*} <PanoramicScene />*/}
+        <GltfFileLoad />
       </main>
     </div>
   );

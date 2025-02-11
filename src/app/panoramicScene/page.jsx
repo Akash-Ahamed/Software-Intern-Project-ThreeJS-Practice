@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import * as THREE from "three";
 import { VRButton } from "three/examples/jsm/webxr/VRButton";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 export default function PanoramicScene() {
   useEffect(() => {
@@ -27,6 +28,16 @@ export default function PanoramicScene() {
     );
     scene.add(camera);
 
+    // Orbit Controls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.screenSpacePanning = true;
+    controls.minDistance = 3;
+    controls.maxDistance = 10;
+    controls.zoomSpeed = 0.8;
+    controls.panSpeed = 0.5;
+
     // Lights
     const ambientLight = new THREE.AmbientLight(0xffffff, 2);
     scene.add(ambientLight);
@@ -44,14 +55,14 @@ export default function PanoramicScene() {
     // Texture Loader
     const loader = new THREE.TextureLoader();
 
-    loader.load("/panorama/kandao3.jpg", (texture) => {
+    loader.load("/panoramic/kandao3.jpg", (texture) => {
       texture.colorSpace = THREE.SRGBColorSpace;
       texture.minFilter = THREE.LinearFilter;
       pano.material.map = texture;
       pano.material.needsUpdate = true;
     });
 
-    loader.load("/panorama/kandao3_depthmap.jpg", (depth) => {
+    loader.load("/panoramic/kandao3_depthmap.jpg", (depth) => {
       pano.material.displacementMap = depth;
       pano.material.needsUpdate = true;
     });
@@ -59,6 +70,7 @@ export default function PanoramicScene() {
     // Animation Loop
     const animate = () => {
       pano.rotation.y += 0.001;
+      controls.update();
       renderer.render(scene, camera);
     };
     renderer.setAnimationLoop(animate);

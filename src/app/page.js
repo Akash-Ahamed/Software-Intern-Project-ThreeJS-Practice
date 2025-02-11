@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import FirstScene from "./firstScene/page";
-import ObectRotateScene from "./objectRotate/page";
+import ObjectRotateScene from "./objectRotate/page";
 import GlbFilesLoadScene from "./glbFilesLoad/page";
 
 export default function Home() {
@@ -9,8 +9,8 @@ export default function Home() {
     <div>
       <main>
         {/*<FirstScene />*/}
-        {/*<ObectRotateScene /> */}
-        <GlbFilesLoadScene />
+        <ObjectRotateScene />
+        {/*<GlbFilesLoadScene />*/}
       </main>
     </div>
   );

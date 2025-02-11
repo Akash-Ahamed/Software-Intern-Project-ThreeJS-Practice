@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-export default function ObectRotateScene() {
+export default function ObjectRotateScene() {
   useEffect(() => {
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);

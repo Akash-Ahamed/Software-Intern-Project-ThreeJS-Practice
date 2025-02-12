@@ -45,12 +45,12 @@ export default function GltfFileLoad() {
     const grid = new THREE.GridHelper(30, 30);
     scene.add(grid);
 
-    //
+    // Color encoding and tone mapping
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 4;
 
-    //Load HDR environment
+    //Load HDR environment texture
     const rgbeLoader = new RGBELoader();
     rgbeLoader.load(
       "/gltf_files/MR_INT-005_WhiteNeons_NAD.hdr",

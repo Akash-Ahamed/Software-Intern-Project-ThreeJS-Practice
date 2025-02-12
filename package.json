@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "cannon-es": "^0.20.0",
     "lil-gui": "^0.20.0",
     "next": "15.1.6",
     "npm-gui": "^4.0.4",

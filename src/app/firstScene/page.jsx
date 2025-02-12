@@ -21,23 +21,24 @@ export default function FirstScene() {
       0.1,
       1000
     );
+    camera.position.set(0, 2, 5);
 
-    // Camera Orbit Controls
+    // Orbit Controls
     const orbitControls = new OrbitControls(camera, renderer.domElement);
+    orbitControls.update();
 
+    // AxesHelper
     const axesHelper = new THREE.AxesHelper(5);
     scene.add(axesHelper);
-    camera.position.set(0, 2, 5);
-    orbitControls.update();
 
     // Grid
     const griHelper = new THREE.GridHelper(30);
     scene.add(griHelper);
 
     // Box Geometry
-    const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshBasicMaterial({ color: 0xff8000 });
-    const box = new THREE.Mesh(geometry, material);
+    const boxgeometry = new THREE.BoxGeometry();
+    const boxmaterial = new THREE.MeshBasicMaterial({ color: 0xff8000 });
+    const box = new THREE.Mesh(boxgeometry, boxmaterial);
     scene.add(box);
     box.position.set(0, 2, 0);
     box.scale.set(1, 2, 1);

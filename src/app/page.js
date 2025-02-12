@@ -6,6 +6,7 @@ import GlbFilesLoadScene from "./glbFilesLoad/page";
 import PanoramicScene from "./panoramicScene/page";
 import GltfFileLoad from "./gltfFileLoad/page";
 import PhysicsScene from "./physicsLaw/page";
+import SubdividePlaneScene from "./subdividePlane/page";
 
 export default function Home() {
   return (
@@ -14,9 +15,10 @@ export default function Home() {
         {/*<FirstScene />*/}
         {/*<ObjectRotateScene />*/}
         {/*<GlbFilesLoadScene />*/}
-        {/*} <PanoramicScene />*/}
+        {/* <PanoramicScene />*/}
         {/*<GltfFileLoad />*/}
-        <PhysicsScene />
+        {/*<PhysicsScene />*/}
+        <SubdividePlaneScene />
       </main>
     </div>
   );
